@@ -66,3 +66,31 @@ def adornot():
   
   return redirect('/')
   
+
+@app.route('/start', methods = ['POST'])
+def start():
+  session['pdfname'] = request.form['pdfname']
+  
+  if session['pdfname'] == "":
+    session['numpages']=0
+    session['currpage']=0
+    session['currfile']=0
+    session['image_url'] = PDF_PLACEHOLDER_IMAGE_PATH
+    session['info_placeholder'] = INFO_PLACEHOLDER_DEFAULT
+    return redirect('/')
+    
+  else:
+    contentlist = list(bucket.list(folder_path+session['pdfname'][:-4]+"/","/"))
+    session['numpages'] = len([contentlist for each in contentlist if "Page" in each.name])
+    session['currpage']=0
+    session['currfile']=0
+    session['image_url'] = home_path+session['pdfname'][:-4]+"/Page"+str(session['currpage'])+"/segmentedAds/"+str(session['currfile'])+".png"
+    
+    session['info_placeholder'] = "Input "+session['pdfname']+" has "+str(session['numpages'])+" page(s). Displaying file "+str(session['currfile'])+" from Page "+str(session['currpage'])+"..."
+    return redirect('/')
+    
+
+if __name__ == '__main__':
+  #flaskrun(app)
+  app.run(processes=10)
+
