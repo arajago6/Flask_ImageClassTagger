@@ -60,3 +60,52 @@ h1
   line-height: 45px;
   height: 70px;
 }
+
+.topbar{
+  background-color: #262626;
+  background-image: url('../img/bg.png');
+}
+
+.btn-add{
+  width: 10%;
+}
+
+.btn-add-lg{
+  width: 24.8%;
+}
+
+.btn-nav{
+  background: none;
+  border: 1px solid #ffffff;
+  color: white;
+}
+
+.btn-nav:hover{
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #006dcc;
+}
+
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -10px;
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 10px;
+  color: white; 
+  font-size: 80%;
+}
+.site-footer {
+  background: black;
+}
