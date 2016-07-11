@@ -12,3 +12,19 @@ app = Flask(__name__, static_url_path = APP_STATIC_URL_PATH, static_folder = APP
 app.secret_key = APP_SESSION_SECRET_KEY
 home_path = AWS_S3_HOME_URL
 folder_path = TARGET_DIRPATH_FROM_HOME
+
+
+@app.route('/')
+def index():
+  try:
+    print session['image_url'], session['info_placeholder']
+  except KeyError:
+    session['image_url'] = PDF_PLACEHOLDER_IMAGE_PATH 
+    session['info_placeholder'] = INFO_PLACEHOLDER_DEFAULT
+  return render_template('index.html', image_url=session['image_url'], info_placeholder=session['info_placeholder'])
+  
+
+@app.route('/clear')
+def clearsession():
+    session.clear()
+    return redirect('/')
