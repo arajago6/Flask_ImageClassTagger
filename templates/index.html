@@ -52,4 +52,37 @@
         </div>
         <!-- /.container -->
     </nav>
-</body>
+
+    <div class="wrapper topbar textfield">
+      <center>
+      <div class="input-group" style="width:50%">
+        <form action="/start" method="post" class="input-group">
+          <input type="text" id="pdfname" name="pdfname" class="form-control" placeholder="Enter the pdf name...">
+            <span class="input-group-btn">
+              <input type="submit" class="btn btn-primary" value="Start!"></input>
+          </span>
+        </form>
+      </div>
+      </center>
+    </div>
+
+    <p class="lead wrapper"> {{info_placeholder}} </p>
+
+    <div class="wrapper btn-banner">
+      <form action="/run" method="post">
+        <input type="submit" id="notad_btn" name="NOTAD" class="btn btn-danger btn-add-lg" value="NOT AD"></input>
+        <input type="submit" id="ad_btn" name="AD" class="btn btn-success btn-add-lg" value="AD"></input>
+      </form>
+    </div>
+
+    <center>
+      <div class="banner">
+        <img id="center_img" src={{image_url}} style="max-width: 100%">
+      </div>
+    </center>
+
+    <div class="site-footer wrapper">&copy; OwnLocal or its partners. All Rights Reserved.</div>
+
+  </body>
+
+</html>
