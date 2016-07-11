@@ -28,3 +28,41 @@ def index():
 def clearsession():
     session.clear()
     return redirect('/')
+
+
+@app.route('/run', methods = ['POST'])
+def adornot():
+  try:
+    if 'NOTAD' in request.form:
+      key = bucket.get_key(session['image_url'].split(AWS_S3_BUCKET_NAME+"/")[1])
+      key.get_contents_to_filename('notad.png')
+      #bucket.delete_key(key)
+      k = bucket.new_key("notads/%s-%s-%s.png" %(session['pdfname'][:-4],str(session['currfile']),str(session['currpage'])))
+      k.set_contents_from_filename('notad.png')
+      os.remove('notad.png')
+    elif 'AD' in request.form:
+      key = bucket.get_key(session['image_url'].split(AWS_S3_BUCKET_NAME+"/")[1])
+      key.get_contents_to_filename('ad.png')
+      #bucket.delete_key(key)
+      k = bucket.new_key("ads/%s-%s-%s.png" %(session['pdfname'][:-4],str(session['currfile']),str(session['currpage'])))
+      k.set_contents_from_filename('ad.png')
+      os.remove('ad.png')
+      
+      
+    numfiles = len(list(bucket.list(folder_path+session['pdfname'][:-4]+"/Page"+str(session['currpage'])+"/segmentedAds/","/")))
+    if session['currfile'] < numfiles-1:
+      session['currfile'] += 1
+      session['image_url'] = home_path+session['pdfname'][:-4]+"/Page"+str(session['currpage'])+"/segmentedAds/"+str(session['currfile'])+".png"
+      session['info_placeholder'] = "Input "+session['pdfname']+" has "+str(session['numpages'])+" page(s). Displaying file "+str(session['currfile'])+" from Page "+str(session['currpage'])+"..."
+      if session['currfile'] == numfiles-1:
+        session['currpage'] += 1
+        session['currfile'] = -1
+    else:
+      session['image_url'] = PDF_PLACEHOLDER_IMAGE_PATH
+      session['info_placeholder'] = INFO_PLACEHOLDER_DEFAULT
+      
+  except:
+    pass
+  
+  return redirect('/')
+  
