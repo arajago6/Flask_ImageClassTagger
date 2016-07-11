@@ -29,3 +29,34 @@ h1
   padding-top: 80px;
   padding-bottom: 10px;
 }
+
+.lead
+{
+  background-color:rgba(255,255,255,0.5);
+  box-shadow:rgba(0,0,0,0.2) 0 1px 1px;
+  font-family:Sintony, sans-serif;
+  font-size: 14px;
+  padding: 5px;
+  color: white;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+}
+
+.titletext{
+  padding-top: 30px;
+  font-family:Sintony, sans-serif;
+  font-weight: bold;
+}
+
+.navbar-brand,
+.navbar-nav li a {
+  line-height: 45px;
+  height: 70px;
+}
